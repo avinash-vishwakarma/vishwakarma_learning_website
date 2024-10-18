@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get("/email_update","show")->name("email_update.show");
         Route::patch("/email_update","update")->name("email_update.update");
         Route::get("/verify-email","verifyEmail")->name("email_update.verify")->middleware(["canVerifyEmail"]);
+        Route::post("/resend-verification-mail",'resendEmail')->name("email_update.resend")->middleware(['canVerifyEmail','canResendEmail']);
         Route::get('verify-email/{id}/{hash}', "validateEmail")
                 ->middleware(["canVerifyEmail",'signed', 'throttle:6,1'])
                 ->name('verification.verify');

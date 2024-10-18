@@ -20,12 +20,19 @@
   
           <x-form.validation-alert/>
           
-          <form action="{{ route('register') }}" method="post">
+          <form action="{{ route('register') }}" method="post" id="postForm">
+            
+            <div class="alert custom-alert-2 alert-danger alert-dismissible fade show d-none" role="alert">
+              <i class="bi bi-x-circle"></i>
+              <span></span>
+              <button class="btn btn-close btn-close-white position-relative p-1 ms-auto" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             @csrf
   
             <x-form.input placeholder="Full Name" name="name" id="name"  />
             <x-form.phone-input placeholder="Phone Number" name="number" id="number"   />
-  
+
   
             <x-form.password-input />
             <x-form.password-input placeholder="Confrim Password" name="password_confirmation" />
@@ -34,9 +41,9 @@
               <input class="form-check-input" id="checkedCheckbox" type="checkbox" checked name="terms">
               <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">I agree with the terms &amp;
                 policy.</label>
+
             </div>
-  
-            <button class="btn btn-theme w-100" type="submit">Sign In</button>
+            <x-form.submit-button text="Sign up"/>
           </form>
         </div>
   
@@ -47,4 +54,9 @@
       </div>
     </div>
   
+
+    @slot('js_slot')
+        <script src="{{ asset('js/custom/postForm.js') }}"></script>
+    @endslot
+
   </x-layouts.blank>

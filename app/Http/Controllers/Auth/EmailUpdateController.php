@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth\EmailVerificationRequest;
+use App\Http\Requests\Auth\EmailResendVerificationRequest;
+// use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class EmailUpdateController extends Controller
 {
@@ -20,6 +23,7 @@ class EmailUpdateController extends Controller
 
         $request->user()->email = $request->email;
         session($request->only("email"));
+        session(["email_sent_time"=>now()]);
         $request->user()->sendEmailVerificationNotification();
         // redireact the user 
         return redirect()->route('email_update.verify');
@@ -29,9 +33,13 @@ class EmailUpdateController extends Controller
         return view("auth.verifyEmail");
     }
 
+    public function resendEmail(Request $request){
+        // check for the resend mail 
+        
+    }
+
     public function validateEmail(EmailVerificationRequest $request){
-
-
+        
         $user = Auth::user();
         $user->email = session()->get("email");
         $user->save();

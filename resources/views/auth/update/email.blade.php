@@ -13,6 +13,8 @@
                 </div>
               </div>
 
+              <x-form.validation-alert/>
+
             <div  class="card">
                 <div class="card-body">
                     <x-form.input id="userEmail"  label="Your Current Email" placeholder="Your Current Email" :value="auth()->user()->email ?? 'Kindly add new Email'" readonly/>      

@@ -127,7 +127,8 @@ return [
     // custome auth variable configuration
 
     'PASSWORD_VERIFIED_FOR'=>env('PASSWORD_VERIFIED_FOR',5),
-    'OTP_EXPIRES_IN'=>env('OTP_EXPIRES_IN',5)
+    'OTP_EXPIRES_IN'=>env('OTP_EXPIRES_IN',5),
+    'RESEND_TIME_LIMIT_FOR_EMAIL_VERIFICATION'=>env('RESEND_TIME_LIMIT_FOR_EMAIL_VERIFICATION',2)
 
 
 ];
