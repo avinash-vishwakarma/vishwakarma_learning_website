@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Carbon\Carbon;
+use App\Events\ResendOTP;
 use App\Rules\VerifyOtpRule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,11 @@ class NumberVerificationController extends Controller
         return !session()->has("otp")
         ? redirect(route("home",true))
         : view('auth.verify-number');
+    }
+
+    public function resend(Request $request){
+        event(new ResendOTP());
+        return redirect()->back()->with('toast',["type"=>"success","title"=>"OTP resend Successfull" , "description"=>"OTP resend Successfully"]);
     }
 
     public function store(Request $request){

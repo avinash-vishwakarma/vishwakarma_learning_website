@@ -18,8 +18,23 @@
     
           <!-- Term & Privacy Info -->
           <div class="login-meta-data text-center">
-            <p class="mt-3 mb-0">Don't received the OTP? <span class="otp-sec" id="resendOTP"></span></p>
+            <p class="mt-3 mb-0">Don't received the OTP? 
+              <form action="{{ route('verification.otp.resend') }}" id="resendForm" method="post">
+                @csrf
+                <div id="timerText" class="d-inline">
+                  wait 
+                <span>60</span>
+                seconds to
+                </div>
+                <button class="btn btn-link disabled" type="submit" id="resendOTP">resend</button>
+              </form>
+            </p>
           </div>
         </div>
       </div>
+
+      @slot('js_slot')
+          <script src="{{ asset('js/custom/resendTimer.js') }}"></script>
+      @endslot
+
 </x-layouts.blank>

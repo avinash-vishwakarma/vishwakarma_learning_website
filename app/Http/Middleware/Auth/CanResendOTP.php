@@ -3,10 +3,11 @@
 namespace App\Http\Middleware\Auth;
 
 use Closure;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CanResendEmail
+class CanResendOTP
 {
     /**
      * Handle an incoming request.
@@ -15,11 +16,10 @@ class CanResendEmail
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(Carbon::now()->greaterThan(Carbon::parse(session()->get('email_sent_time'))->addMinutes((int)config('app.RESEND_TIME_LIMIT_FOR_EMAIL_VERIFICATION')))){
+        // check of last otp genration is 
+        if(session()->get('otp') && Carbon::now()->greaterThan(Carbon::parse(session()->get('otp_time'))->addMinutes((int)config('app.OTP_CAN_RESEND_TIME')))){
             return $next($request);
         }
-        return redireact()->back()->with('toast',["type"=>"error","title"=>"Resend Email After 2 Minutes" , "description"=>"Please wait for 2 minutes before resending the email."]);
-
+        return redirect()->back()->with('toast',["type"=>"danger","title"=>"Resend OTP After 1 Minutes" , "description"=>"Please wait for 1 minutes before resending the OTP."]);
     }
 }

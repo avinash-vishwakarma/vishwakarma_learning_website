@@ -42,6 +42,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware("hasOTP")->controller(NumberVerificationController::class)->group(function(){
     Route::get("verify-number",'show')->name('verification.number');
+    Route::post('resend-otp','resend')->middleware('canResendOTP')->name('verification.otp.resend');
     Route::post("verify-number",'store')->middleware(['throttle:6,1'])->name('verification.number.verify'); 
 });
 

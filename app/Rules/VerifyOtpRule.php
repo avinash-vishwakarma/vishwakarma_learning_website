@@ -16,7 +16,7 @@ class VerifyOtpRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if(Hash::check($value,session()->get('otp')) && Carbon::now()->lessThan(Carbon::parse(session()->get("otp_time")))){
+        if(Hash::check($value,session()->get('otp')) && Carbon::now()->lessThan(Carbon::parse(session()->get("otp_time"))->addMinutes((int)config('app.OTP_EXPIRES_IN')))){
                         // remove otp and otp_itme from session
                         session()->forget(["otp","otp_time"]);
         }else{

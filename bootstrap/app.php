@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Middleware\CanVerifyEmail;
 use App\Http\Middleware\HasOtpMiddleware;
 use App\Http\Middleware\PasswordVerified;
+use App\Http\Middleware\Auth\CanResendOTP;
 use App\Http\Middleware\Auth\CanResendEmail;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,7 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'hasOTP'=>HasOtpMiddleware::class,
             'PasswordVerified'=>PasswordVerified::class,
             'canVerifyEmail'=>CanVerifyEmail::class,
-            'canResendEmail'=>CanResendEmail::class
+            'canResendEmail'=>CanResendEmail::class,
+            'canResendOTP'=>CanResendOTP::class
         ]);
         //
     })
